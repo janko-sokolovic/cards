@@ -8,12 +8,15 @@ export default class Board extends Component {
 
     render() {
 
-        const styles = {
-            
+        const boardStyles = {
+            width: "400px",
+            minHeight: "100px",
+            background: "grey",
+            borderRadius: "5px"
         }
 
         return (
-            <div></div>
+            <div styles={boardStyles}>This is a card.</div>
         );
     }
 }

@@ -7,7 +7,12 @@ import Board from '../Board/Board';
 export default class BoardList extends Component {
     render() {
         return (
-            <Board />
+            <div>
+                <Board />
+                <Board />
+                <Board />
+                <Board />
+            </div>
         );
     }
 }

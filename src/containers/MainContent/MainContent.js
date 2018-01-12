@@ -8,6 +8,7 @@ export default class MainContent extends Component {
     render() {
         return (
             <div>
+                Boards:
                 <BoardList />
             </div>
         );
