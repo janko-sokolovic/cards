@@ -6,9 +6,15 @@ import BoardList from '../BoardList/BoardList';
  */
 export default class MainContent extends Component {
     render() {
+
+        const titleStyle = {
+            fontSize: "30px",
+            textAlign: "left",
+            padding: "10px"
+        }
         return (
             <div>
-                Boards:
+                <div style={titleStyle}>Boards:</div>
                 <BoardList />
             </div>
         );
