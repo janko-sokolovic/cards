@@ -19,7 +19,7 @@ export default class Board extends Component {
         }
 
         return (
-            <div style={boardStyles}>This is a card.</div>
+            <div style={boardStyles}>{this.props.name}</div>
         );
     }
 }
