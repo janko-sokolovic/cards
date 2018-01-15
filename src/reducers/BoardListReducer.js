@@ -1,9 +1,9 @@
+import { ACTIONS } from '../actions/index';
+
 export default function (state = [], action) {
     switch (action.type) {
-        case 'BOARD_ADDED':
-            const newE = action.board ?  [...state, action.board] : state;
-            console.log(newE);
-           return newE;
+        case ACTIONS.BOARD_ADDED:
+            return action.board ? [...state, action.board] : state;
         default:
     }
 

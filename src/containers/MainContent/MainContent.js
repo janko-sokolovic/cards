@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BoardList from '../BoardList/BoardList';
+import BoardList from '../Board/BoardList';
 
 /**
  * Contains list of all boards.

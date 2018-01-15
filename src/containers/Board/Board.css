@@ -1,0 +1,9 @@
+.board {
+    width: 300px;
+    min-height: 120px;
+    background: #dddddd;
+    border-radius: 5px;
+    float: left;
+    margin: 10px;
+    padding: 10px;
+}
