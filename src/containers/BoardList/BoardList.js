@@ -5,20 +5,19 @@ import { connect } from 'react-redux';
 import { boardAdded } from '../../actions/index';
 import { bindActionCreators } from 'redux';
 
-
 /**
  * Contains list of all boards.
  */
 class BoardList extends Component {
 
-    constructor(props, state){
+    constructor(props, state) {
         super(props);
-    
-        this.onClick = this.onClick.bind(this);
+
+        this.onAddBoard = this.onAddBoard.bind(this);
     }
 
-    onClick(){ 
-      this.props.boardAdded({name: "New board Added"});
+    onAddBoard() {
+        this.props.boardAdded({ name: "New board Added" });
     }
 
     render() {
@@ -27,8 +26,9 @@ class BoardList extends Component {
         );
         return (
             <div>
+                <Board newBoard="true" />
                 {boards}
-                <button onClick={this.onClick}>asdasd</button>
+                <button onClick={this.onAddBoard}>asdasd</button>
             </div>
         );
     }
@@ -41,12 +41,12 @@ function mapStateToProps(state) {
         boards: state.boards
     }
 }
-  
-  function mapDispatchToProps(dispatch, props) {
+
+function mapDispatchToProps(dispatch, props) {
     return bindActionCreators({
         boardAdded: boardAdded,
     }, dispatch);
-  }
+}
 
 // Promote component to container
 export default connect(mapStateToProps, mapDispatchToProps)(BoardList);

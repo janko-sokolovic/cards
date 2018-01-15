@@ -6,6 +6,15 @@ import React, { Component } from 'react';
  */
 export default class Board extends Component {
 
+    constructor(props, state) {
+        super(props);
+
+        this.state = {
+            newBoardName: ""
+          }
+
+    }
+
     render() {
 
         const boardStyles = {
@@ -16,6 +25,15 @@ export default class Board extends Component {
             float:"left",
             margin: "10px",
             padding: "10px"
+        }
+
+        if(Boolean(this.props.newBoard)) {
+            return ( 
+                <div style={boardStyles}>
+                    <input value={this.state.newBoardName} />
+                    <button> Add new board! </button>
+                </div>
+            )
         }
 
         return (
