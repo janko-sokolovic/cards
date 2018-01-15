@@ -49,7 +49,8 @@ class BoardList extends Component {
         </Paper>
 
         const boardStyle = {
-            lineHeight: "100px"
+            lineHeight: "100px",
+            fontSize: "20px"
         };
         const boards = this.props.boards.map((board, i) =>
             <Paper key={i} className="board" style={boardStyle}>{board.name}</Paper>
