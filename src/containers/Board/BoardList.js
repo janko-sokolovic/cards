@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Add from 'material-ui-icons/Add';
 import Paper from 'material-ui/Paper';
+import { Link } from 'react-router-dom'
 
 /**
  * Contains list of all boards.
@@ -33,7 +34,9 @@ class BoardList extends Component {
         };
 
         const boards = this.props.boards.map((board, i) =>
-            <Paper key={i} className="board" style={boardStyle} >{board.name}</Paper>
+            <Link key={i} to={"/board/" + board.id}>
+                <Paper className="board" style={boardStyle} >{board.name}</Paper>
+            </Link>
         );
 
         const titleStyle = {
