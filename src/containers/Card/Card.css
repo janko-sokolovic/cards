@@ -1,0 +1,12 @@
+.cardList {
+    width: 300px;
+    min-height: 200px;
+    float: left;
+    border-radius: 6px;
+}
+
+.cardListName {
+    font-weight: bold;
+    float:left;
+    margin:5px;
+}

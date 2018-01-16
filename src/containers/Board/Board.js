@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { cardListAdded } from '../../actions/index';
 import { Link } from 'react-router-dom';
 import './Board.css';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import PlaylistAdd from 'material-ui-icons/PlaylistAdd';
+import CardList from '../Card/CardList';
 
 /**
  * Represents an actual board with list of cards inside.
@@ -36,8 +39,8 @@ class Board extends Component {
             return <div> Board doesn't exist. <Link to={"/"} style={{ textDecoration: "none" }}> Go back </Link></div>
         }
 
-        const cardLists = board.cardLists.map((cList, i) =>
-            <div key={cList.id}>cardList!</div>
+        const cardLists = board.cardLists.map((cardList, i) =>
+            <CardList key={cardList.id} cardList={cardList}> </CardList>
         );
 
         const addList = <div className="addAList">
@@ -70,8 +73,10 @@ class Board extends Component {
         if (!this.state.newListName) {
             return;
         }
-        this.state.board.cardLists.push([]); // add new list of cards
-        this.setState({ newBoardName: "" });
+
+        // add new list of cards
+        this.props.cardListAdded(this.state.board.id, { name: this.state.newListName, cards: [] });
+        this.setState({ newListName: "" });
     }
 
     listInputUpdate(value) {
@@ -91,4 +96,10 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(Board);
+function mapDispatchToProps(dispatch, props) {
+    return bindActionCreators({
+        cardListAdded
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);

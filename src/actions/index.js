@@ -13,9 +13,10 @@ export function boardAdded(board) {
     }
 }
 
-export function cardListAdded(board) {
+export function cardListAdded(boardId, cardList) {
     return {
         type: ACTIONS.CARD_LIST_ADDED,
-        board: board
+        boardId,
+        cardList
     }
 }
