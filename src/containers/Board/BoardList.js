@@ -36,8 +36,15 @@ class BoardList extends Component {
             <Paper key={i} className="board" style={boardStyle} >{board.name}</Paper>
         );
 
+        const titleStyle = {
+            fontSize: "30px",
+            textAlign: "left",
+            padding: "10px"
+        };
+
         return (
             <div>
+                <div style={titleStyle}>Boards:</div>
                 <Paper className="board" style={{ borderRadius: "6px" }} zDepth={this.state.isNewActive ? 3 : 1}>
                     <TextField hintText="Add new board"
                         value={this.state.newBoardName}

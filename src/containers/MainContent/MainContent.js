@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import BoardList from '../Board/BoardList';
+import Board from '../Board/Board';
+import Switch from 'react-router-dom/Switch';
+import Route from 'react-router-dom/Route';
 
 /**
  * Contains list of all boards.
@@ -7,15 +10,15 @@ import BoardList from '../Board/BoardList';
 export default class MainContent extends Component {
     render() {
 
-        const titleStyle = {
-            fontSize: "30px",
-            textAlign: "left",
-            padding: "10px"
-        }
+       
         return (
             <div>
-                <div style={titleStyle}>Boards:</div>
-                <BoardList />
+                
+                <Switch>
+                    <Route exact path='/' component={BoardList} />
+                    <Route exact path='/board/:boardId' component={Board} />
+                    {/* both /roster and /roster/:number begin with /roster */}
+                </Switch>
             </div>
         );
     }
