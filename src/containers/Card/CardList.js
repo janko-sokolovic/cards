@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import "./Card.css";
+import Card from "./Card";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { cardAdded } from '../../actions/index';
 
-export default class CardList extends Component {
+class CardList extends Component {
 
     constructor(props, state) {
         super(props);
@@ -11,30 +15,38 @@ export default class CardList extends Component {
         this.state = {
             newCardText: ""
         }
+
+        this.cardTextUpdate = this.cardTextUpdate.bind(this);
     }
 
     render() {
+
+        const cards = this.props.cardList.cards.map((card, i) =>
+            <Card card={card} key={card.id}> </Card>
+        )
+
         return (
             <div>
                 <Paper className="cardList">
-                    <div>{this.props.cardList.name}</div>
+                    <div className="cardListName">{this.props.cardList.name}</div>
                     <TextField hintText="Add a card..."
                         value={this.state.newCard}
                         style={{ marginBottom: "10px" }}
                         onChange={(event) => this.cardTextUpdate(event.target.value)}
                         onKeyPress={this.handleEnterPress.bind(this)} />
-                    <div> list of cards... </div>
+                    {cards}
                 </Paper>
+
             </div>
         );
     }
 
     onAddCard() {
-        // if (!this.state.newBoardName) {
-        //     return;
-        // }
-        // this.props.boardAdded({ name: this.state.newBoardName, cardLists: [] });
-        // this.setState({ newBoardName: "" });
+        if (!this.state.newCardText) {
+            return;
+        }
+        this.props.cardAdded(this.props.boardId, this.props.cardList.id, { text: this.state.newCardText });
+        this.setState({ newCardText: "" });
     }
 
 
@@ -49,3 +61,18 @@ export default class CardList extends Component {
     }
 
 }
+
+
+function mapStateToProps(state) {
+    return {
+        boards: state.boards
+    }
+}
+
+function mapDispatchToProps(dispatch, props) {
+    return bindActionCreators({
+        cardAdded
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardList);

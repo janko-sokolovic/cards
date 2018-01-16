@@ -3,10 +3,20 @@
     min-height: 200px;
     float: left;
     border-radius: 6px;
+    padding: 10px;
+    margin: 10px;
+    background: #bbbbbb;
 }
 
 .cardListName {
     font-weight: bold;
-    float:left;
-    margin:5px;
+    float: left;
+    margin: 5px;
+}
+
+.card {
+    width: 250px;
+    margin: 0 auto;
+    padding: 5px;
+    margin: 5px;
 }

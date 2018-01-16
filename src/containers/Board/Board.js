@@ -40,7 +40,7 @@ class Board extends Component {
         }
 
         const cardLists = board.cardLists.map((cardList, i) =>
-            <CardList key={cardList.id} cardList={cardList}> </CardList>
+            <CardList key={cardList.id} cardList={cardList} boardId={bid} > </CardList>
         );
 
         const addList = <div className="addAList">
