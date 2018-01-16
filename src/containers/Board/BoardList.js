@@ -39,15 +39,9 @@ class BoardList extends Component {
             </Link>
         );
 
-        const titleStyle = {
-            fontSize: "30px",
-            textAlign: "left",
-            padding: "10px"
-        };
-
         return (
             <div>
-                <div style={titleStyle}>Boards:</div>
+                <div className="boardTitle">Boards:</div>
                 <Paper className="board" style={{ borderRadius: "6px" }} zDepth={this.state.isNewActive ? 3 : 1}>
                     <TextField hintText="Add new board"
                         value={this.state.newBoardName}
@@ -64,7 +58,7 @@ class BoardList extends Component {
                         icon={<Add />} />
                 </Paper>
 
-                {boards}
+                { boards }
             </div>
         );
     }
@@ -76,8 +70,15 @@ class BoardList extends Component {
         if (!this.state.newBoardName) {
             return;
         }
-        this.props.boardAdded({ name: this.state.newBoardName, cards: [] });
+        this.props.boardAdded({ name: this.state.newBoardName, cardLists: [] });
         this.setState({ newBoardName: "" });
+    }
+
+    /**
+     * Brings 'newBoard' forward/backward depending on focus
+     */
+    toggleNewBoard() {
+        this.setState({ isNewActive: !this.state.isNewActive });
     }
 
     boardInputeUpdate(value) {
@@ -88,13 +89,6 @@ class BoardList extends Component {
         if (event.key === 'Enter') {
             this.onAddBoard();
         }
-    }
-
-    /**
-     * Brings 'newBoard' forward/backward depending on focus
-     */
-    toggleNewBoard() {
-        this.setState({ isNewActive: !this.state.isNewActive });
     }
 }
 

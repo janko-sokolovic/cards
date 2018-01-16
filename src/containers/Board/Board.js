@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './Board.css';
 
 /**
- * Represents an actual board with cards inside.
+ * Represents an actual board with list of cards inside.
  * /board/:boardId
  */
 class Board extends Component {
@@ -14,20 +15,13 @@ class Board extends Component {
 
         const board = this.props.boards.find(b => b.id === bid);
 
-        const goBackStyle = {
-            textDecoration: "none",
-
-        }
-
         if (!board) {
-            return <div> Board doesnt exist.
-                 <Link to={"/"} style={goBackStyle}> Go back </Link>
-            </div>
+            return <div> Board doesn't exist. <Link to={"/"} style={{textDecoration:"none"}}> Go back </Link></div>
         }
 
         return (
             <div>
-                Board: {board.name}
+                <div className="boardTitle">Board: {board.name}</div>
                 hello, this is board {this.props.match.params.boardId}
             </div>
         );
