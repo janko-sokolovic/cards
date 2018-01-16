@@ -6,6 +6,7 @@ import Card from "./Card";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { cardAdded } from '../../actions/index';
+import Divider from 'material-ui/Divider';
 
 class CardList extends Component {
 
@@ -22,15 +23,20 @@ class CardList extends Component {
     render() {
 
         const cards = this.props.cardList.cards.map((card, i) =>
-            <Card card={card} key={card.id}> </Card>
+            <Card card={card} key={card.id}></Card>
         )
+
+        const cardListStyle = {
+            borderRadius: "6px"
+        }
 
         return (
             <div>
-                <Paper className="cardList">
+                <Paper className="cardList" style={cardListStyle}>
                     <div className="cardListName">{this.props.cardList.name}</div>
+                    <Divider />
                     <TextField hintText="Add a card..."
-                        value={this.state.newCard}
+                        value={this.state.newCardText}
                         style={{ marginBottom: "10px" }}
                         onChange={(event) => this.cardTextUpdate(event.target.value)}
                         onKeyPress={this.handleEnterPress.bind(this)} />

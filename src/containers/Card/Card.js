@@ -7,8 +7,11 @@ import Paper from 'material-ui/Paper';
 export default class Card extends Component {
 
     render() {
+        const cardStyle = {
+            borderRadius: "4px"
+        }
         return (
-            <Paper className="card">
+            <Paper className="card" style={cardStyle}>
                 {this.props.card.text}
             </Paper>
         );
