@@ -24,6 +24,9 @@ class BoardList extends Component {
     }
 
     onAddBoard() {
+        if (!this.state.newBoardName) {
+            return;
+        }
         this.props.boardAdded({ name: this.state.newBoardName });
         this.setState({ newBoardName: "" });
     }
