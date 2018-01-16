@@ -31,13 +31,20 @@ class BoardList extends Component {
         this.setState({ newBoardName: value });
     }
 
+    handleEnterPress(event) {
+        if (event.key === 'Enter') {
+            this.onAddBoard();
+        }
+    }
+
     render() {
 
-        const newBoard = <Paper className="board" zDepth={2} style={{borderRadius: "5px"}}>
+        const newBoard = <Paper className="board" zDepth={2} style={{ borderRadius: "5px" }}>
             <TextField hintText="Add new board"
                 value={this.state.newBoardName}
                 onChange={(event) => this.boardInputeUpdate(event.target.value)}
-                style={{marginBottom:"10px"}}
+                style={{ marginBottom: "10px" }}
+                onKeyPress={this.handleEnterPress.bind(this)}
             />
             <RaisedButton
                 label="Add board"
