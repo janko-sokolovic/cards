@@ -18,7 +18,8 @@ class BoardList extends Component {
         super(props);
 
         this.state = {
-            newBoardName: ""
+            newBoardName: "",
+            isNewActive: false
         }
     }
 
@@ -37,34 +38,41 @@ class BoardList extends Component {
         }
     }
 
-    render() {
+    toggleNewBoard() {
+        this.setState({ isNewActive: !this.state.isNewActive });
+    }
 
-        const newBoard = <Paper className="board" zDepth={2} style={{ borderRadius: "5px" }}>
-            <TextField hintText="Add new board"
-                value={this.state.newBoardName}
-                onChange={(event) => this.boardInputeUpdate(event.target.value)}
-                style={{ marginBottom: "10px" }}
-                onKeyPress={this.handleEnterPress.bind(this)}
-            />
-            <RaisedButton
-                label="Add board"
-                labelPosition="after"
-                primary={true}
-                onClick={this.onAddBoard.bind(this)}
-                icon={<Add />}
-            />
-        </Paper>
+    render() {
 
         const boardStyle = {
             lineHeight: "100px",
-            fontSize: "20px"
+            fontSize: "20px",
+            borderRadius: "6px",
+            cursor: "pointer"
         };
+
         const boards = this.props.boards.map((board, i) =>
-            <Paper key={i} className="board" style={boardStyle}>{board.name}</Paper>
+            <Paper key={i} className="board" style={boardStyle} >{board.name}</Paper>
         );
+
         return (
             <div>
-                {newBoard}
+                <Paper className="board" style={{ borderRadius: "6px" }} zDepth={this.state.isNewActive ? 3 : 1}>
+                    <TextField hintText="Add new board"
+                        value={this.state.newBoardName}
+                        onChange={(event) => this.boardInputeUpdate(event.target.value)}
+                        style={{ marginBottom: "10px" }}
+                        onKeyPress={this.handleEnterPress.bind(this)}
+                        onFocus={this.toggleNewBoard.bind(this)}
+                        onBlur={this.toggleNewBoard.bind(this)} />
+                    <RaisedButton
+                        label="Add board"
+                        labelPosition="after"
+                        primary={true}
+                        onClick={this.onAddBoard.bind(this)}
+                        icon={<Add />} />
+                </Paper>
+
                 {boards}
             </div>
         );
