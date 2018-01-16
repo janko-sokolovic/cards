@@ -23,28 +23,6 @@ class BoardList extends Component {
         }
     }
 
-    onAddBoard() {
-        if (!this.state.newBoardName) {
-            return;
-        }
-        this.props.boardAdded({ name: this.state.newBoardName });
-        this.setState({ newBoardName: "" });
-    }
-
-    boardInputeUpdate(value) {
-        this.setState({ newBoardName: value });
-    }
-
-    handleEnterPress(event) {
-        if (event.key === 'Enter') {
-            this.onAddBoard();
-        }
-    }
-
-    toggleNewBoard() {
-        this.setState({ isNewActive: !this.state.isNewActive });
-    }
-
     render() {
 
         const boardStyle = {
@@ -63,8 +41,8 @@ class BoardList extends Component {
                 <Paper className="board" style={{ borderRadius: "6px" }} zDepth={this.state.isNewActive ? 3 : 1}>
                     <TextField hintText="Add new board"
                         value={this.state.newBoardName}
-                        onChange={(event) => this.boardInputeUpdate(event.target.value)}
                         style={{ marginBottom: "10px" }}
+                        onChange={(event) => this.boardInputeUpdate(event.target.value)}
                         onKeyPress={this.handleEnterPress.bind(this)}
                         onFocus={this.toggleNewBoard.bind(this)}
                         onBlur={this.toggleNewBoard.bind(this)} />
@@ -79,6 +57,34 @@ class BoardList extends Component {
                 {boards}
             </div>
         );
+    }
+
+    /** 
+     * Creates new board with 0 initial cards 
+     * */
+    onAddBoard() {
+        if (!this.state.newBoardName) {
+            return;
+        }
+        this.props.boardAdded({ name: this.state.newBoardName, cards: [] });
+        this.setState({ newBoardName: "" });
+    }
+
+    boardInputeUpdate(value) {
+        this.setState({ newBoardName: value });
+    }
+
+    handleEnterPress(event) {
+        if (event.key === 'Enter') {
+            this.onAddBoard();
+        }
+    }
+
+    /**
+     * Brings 'newBoard' forward/backward depending on focus
+     */
+    toggleNewBoard() {
+        this.setState({ isNewActive: !this.state.isNewActive });
     }
 }
 
