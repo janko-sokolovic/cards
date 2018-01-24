@@ -61,6 +61,33 @@ export default function (state = [], action) {
                 }
             });
             return current;
+        case ACTIONS.CARD_MOVED:
+
+            let newB = state.map(board => {
+                let cls = board.cardLists.map(cList => {
+                    if (cList.id === action.sourceList.id) {
+                        for (let i = 0; i < cList.cards.length; i++) {
+                            if (cList.cards[i].id === action.card.id) {
+                                cList.cards.splice(i, 1);
+                            }
+                        }
+                    }
+                    if (cList.id === action.targetList.id) {
+                        cList.cards.push(action.card);
+                    }
+
+                    return cList;
+
+                });
+
+                return {
+                    id: board.id,
+                    name: board.name,
+                    cardLists:cls
+                }
+            });
+            return newB;
+
         default:
     }
 

@@ -30,6 +30,7 @@ class Board extends Component {
         this.listInputUpdate = this.listInputUpdate.bind(this);
     }
 
+   
     render() {
         const bid = Number.parseInt(this.props.match.params.boardId, 10);
 
@@ -40,7 +41,7 @@ class Board extends Component {
         }
 
         const cardLists = board.cardLists.map((cardList, i) =>
-            <CardList key={cardList.id} cardList={cardList} boardId={bid} > </CardList>
+            <CardList key={cardList.id} cardList={cardList} boardId={bid}> </CardList>
         );
 
         const addList = <div className="addAList">

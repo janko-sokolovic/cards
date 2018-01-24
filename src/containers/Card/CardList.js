@@ -5,7 +5,7 @@ import "./Card.css";
 import Card from "./Card";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { cardAdded } from '../../actions/index';
+import { cardAdded, targetAcquired, dragEnd, moveCard } from '../../actions/index';
 import Divider from 'material-ui/Divider';
 
 class CardList extends Component {
@@ -14,25 +14,49 @@ class CardList extends Component {
         super(props);
 
         this.state = {
-            newCardText: ""
+            newCardText: "",
+            isCurrentTarget: false
         }
 
         this.cardTextUpdate = this.cardTextUpdate.bind(this);
     }
 
+    onDragOver(e) {
+        this.props.targetAcquired(this.props.cardList)
+        this.setState({ isCurrentTarget: true })
+    }
+
+    onDragLeave(e) {
+        this.setState({ isCurrentTarget: false })
+    }
+
+    onDragEnd(e) {
+
+        console.log("Dropped on: ", this.props);
+        this.props.moveCard(this.props.cardDrag.card, this.props.cardDrag.currentTargetList, this.props.cardDrag.sourceList)
+        this.props.dragEnd()
+    }
+
     render() {
 
         const cards = this.props.cardList.cards.map((card, i) =>
-            <Card card={card} key={card.id}></Card>
+            <Card card={card} key={card.id} list={this.props.cardList}></Card>
         )
 
         const cardListStyle = {
             borderRadius: "6px"
         }
 
+        if (this.state.isCurrentTarget) {
+            cardListStyle.background = "#aaa";
+        }
+
         return (
             <div>
-                <Paper className="cardList" style={cardListStyle}>
+                <Paper className="cardList" style={cardListStyle}
+                    onDragOver={this.onDragOver.bind(this)}
+                    onDragLeave={this.onDragLeave.bind(this)}
+                    onDragEnd={this.onDragEnd.bind(this)}>
                     <div className="cardListName">{this.props.cardList.name}</div>
                     <Divider />
                     <TextField hintText="Add a card..."
@@ -55,7 +79,6 @@ class CardList extends Component {
         this.setState({ newCardText: "" });
     }
 
-
     cardTextUpdate(value) {
         this.setState({ newCardText: value });
     }
@@ -71,13 +94,17 @@ class CardList extends Component {
 
 function mapStateToProps(state) {
     return {
-        boards: state.boards
+        boards: state.boards,
+        cardDrag: state.cardDrag
     }
 }
 
 function mapDispatchToProps(dispatch, props) {
     return bindActionCreators({
-        cardAdded
+        cardAdded,
+        targetAcquired,
+        dragEnd,
+        moveCard
     }, dispatch);
 }
 
